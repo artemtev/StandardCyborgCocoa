@@ -17,41 +17,50 @@ limitations under the License.
 
 #pragma once
 
-#include <optional>
 #include <string>
 
-namespace standard_cyborg {
+#if __cplusplus >= 201703L
+#include <optional>
+#endif
 
-// Why wrap things in Result?
-//  * in offline pipelines, it can be OK to throw an exception or do an assert fail
-// on error.  the developer will probably dig after it.
-//  * in consumer products, and production cloud pipelines, you often want a 
-// more graceful failure, and to log the error & traceback to some error logging
-// service. in some extreme cases, you might have a C++ build w/out exceptions.
-// for assertions, there's also the NDEBUG problem with assert.h .  while Result
-// isn't perfect as-is, it at least encapsulates "error codes" for the MVP of 
-// this product
+namespace standard_cyborg {
 
 // A hacky std::expected<> while the committee seeks consensus
 template <typename T>
 struct Result {
+#if __cplusplus >= 201703L
   std::optional<T> value;
-  std::string error;
-
   bool IsOk() const { return value.has_value(); }
+#else
+  T value;
+  bool _has_value;
+  bool IsOk() const { return _has_value; }
+#endif
+  std::string error;
 
   // Or use "{.value = v}"
   static Result<T> Ok(T &&v) {
-    return {.value = std::move(v)};
+    Result<T> r;
+#if __cplusplus >= 201703L
+    r.value = std::move(v);
+#else
+    r.value = std::move(v);
+    r._has_value = true;
+#endif
+    return r;
   }
 
   // Or use "{.error = s}"
   static Result<T> Err(const std::string &s) {
-    return {.error = s};
+    Result<T> r;
+    r.error = s;
+    return r;
   }
 };
 
 using OkOrErr = Result<bool>;
+#if __cplusplus >= 201703L
 static const OkOrErr kOK = {.value = true};
+#endif
 
 } // namespace standard_cyborg

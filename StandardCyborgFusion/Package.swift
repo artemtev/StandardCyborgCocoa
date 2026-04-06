@@ -30,16 +30,11 @@ let package = Package(
                 "ZipArchive",
             ],
             path: "Sources",
-            // resources: [
-            //     .process("StandardCyborgFusion/Models/SCEarLandmarking.mlmodel"),
-            //     .process("StandardCyborgFusion/Models/SCEarTrackingModel.mlmodel"),
-            //     .process("StandardCyborgFusion/Models/SCFootTrackingModel.mlmodel"),
-            // ],
             publicHeadersPath: "include",
             cxxSettings: [
-                // Always optimize, even for debug builds, in order to be usable while debugging the rest of an app
-                .unsafeFlags(["-fobjc-arc", "-Os", "-fno-math-errno", "-ffast-math"]),
+                .unsafeFlags(["-fobjc-arc", "-Os", "-fno-math-errno", "-ffast-math", "-std=c++17"]),
                 .headerSearchPath("."),
+                .headerSearchPath("../EigenInclude"),
                 .headerSearchPath("../libigl/include"),
                 .headerSearchPath("StandardCyborgFusion/Algorithm"),
                 .headerSearchPath("StandardCyborgFusion/DataStructures"),
@@ -63,6 +58,7 @@ let package = Package(
                 .define("PROJECT_DIR", to: "\".\""),
                 .unsafeFlags(["-fobjc-arc"]),
                 .headerSearchPath("."),
+                .headerSearchPath("../EigenInclude"),
                 .headerSearchPath("../libigl/include"),
                 .headerSearchPath("../Sources/StandardCyborgFusion/Algorithm"),
                 .headerSearchPath("../Sources/StandardCyborgFusion/DataStructures"),

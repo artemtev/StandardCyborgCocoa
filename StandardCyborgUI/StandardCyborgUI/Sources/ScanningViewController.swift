@@ -288,7 +288,7 @@ import UIKit
     
     // MARK: - SCReconstructionManagerDelegate
     
-    public func reconstructionManager(_ manager: SCReconstructionManager, didProcessWith metadata: SCAssimilatedFrameMetadata, statistics: SCReconstructionManagerStatistics) {
+    open func reconstructionManager(_ manager: SCReconstructionManager, didProcessWith metadata: SCAssimilatedFrameMetadata, statistics: SCReconstructionManagerStatistics) {
         guard _state == .scanning else { return }
         
         _latestViewMatrix = metadata.viewMatrix

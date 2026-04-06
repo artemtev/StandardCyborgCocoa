@@ -7,15 +7,12 @@ let package = Package(
     name: "scsdk",
     platforms: [.iOS(.v16), .macOS(.v12)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "scsdk",
             targets: ["standard_cyborg"]
         ),
     ],
     dependencies: [
-        // .package(url: "https://github.com/nlohmann/json.git", from: "3.11.3"),
-        .package(path: "../CppDependencies/Eigen"),
         .package(path: "../CppDependencies/json"),
         .package(path: "../CppDependencies/happly"),
         .package(path: "../CppDependencies/nanoflann"),
@@ -25,27 +22,22 @@ let package = Package(
         .package(path: "../CppDependencies/tinygltf"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "standard_cyborg",
             dependencies: [
-                "Eigen", "happly", "json", "nanoflann", "PoissonRecon", "SparseICP", "stb", "tinygltf"
+                "happly", "json", "nanoflann", "PoissonRecon", "SparseICP", "stb", "tinygltf"
             ],
             path: "Sources/standard_cyborg",
             publicHeadersPath: "include",
             cxxSettings: [
-                .unsafeFlags(["-fobjc-arc", "-Os", "-fno-math-errno", "-ffast-math"]),
+                .unsafeFlags(["-fobjc-arc", "-Os", "-fno-math-errno", "-ffast-math", "-std=c++17"]),
                 .define("FMT_HEADER_ONLY", to: "1", .when(platforms: [.iOS, .macOS])),
                 .define("HAVE_CONFIG_H", to: "1", .when(platforms: [.iOS, .macOS])),
                 .define("HAVE_PTHREAD", to: "1", .when(platforms: [.iOS, .macOS])),
                 .define("GUID_LIBUUID", .when(platforms: [.iOS, .macOS])),
+                .headerSearchPath("../../EigenInclude"),
             ]
         ),
-        // .testTarget(
-        //     name: "scsdkTests",
-        //     dependencies: ["scsdk"]
-        // ),
     ],
     cxxLanguageStandard: .cxx17
 )

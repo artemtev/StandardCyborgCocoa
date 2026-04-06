@@ -2,7 +2,7 @@ import Foundation
 import StandardCyborgFusion
 
 public class SCMeshingHelper {
-    enum Status {
+    public enum Status {
         case inProgress(Float)
         case success(SCMesh)
         case failure(Error)
@@ -21,13 +21,13 @@ public class SCMeshingHelper {
     let meshTexturing: SCMeshTexturing
     let meshingParameters: SCMeshingParameters
     
-    init(pointCloud: SCPointCloud, meshTexturing: SCMeshTexturing, meshingParameters: SCMeshingParameters? = nil) {
+    public init(pointCloud: SCPointCloud, meshTexturing: SCMeshTexturing, meshingParameters: SCMeshingParameters? = nil) {
         self.pointCloud = pointCloud
         self.meshTexturing = meshTexturing
         self.meshingParameters = meshingParameters ?? Self.defaultMeshingParameters
     }
      
-    func processMesh(onMeshStatusUpdate: @escaping ((Status) -> Void)) {
+    public func processMesh(onMeshStatusUpdate: @escaping ((Status) -> Void)) {
         processMesh(coloringStrategy: .vertex, onMeshStatusUpdate: onMeshStatusUpdate)
     }
     
