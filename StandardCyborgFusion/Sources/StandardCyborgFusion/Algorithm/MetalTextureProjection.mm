@@ -16,7 +16,7 @@ MetalTextureProjection::MetalTextureProjection(id<MTLDevice> device,
 
     NSError *error;
     NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
-    NSBundle *scFusionBundle = [NSBundle bundleWithPath:[mainBundlePath stringByAppendingString:@"/StandardCyborgFusion_StandardCyborgFusion.bundle"]];
+    NSBundle *scFusionBundle = [NSBundle bundleWithPath:[mainBundlePath stringByAppendingString:@"/StandardCyborgCocoa_StandardCyborgFusion.bundle"]];
     _library = [device newDefaultLibraryWithBundle:scFusionBundle error:&error];
     if (_library == nil) { NSLog(@"Unable to create library: %@", error); }
 

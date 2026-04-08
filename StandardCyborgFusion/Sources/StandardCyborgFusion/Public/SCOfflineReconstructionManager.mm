@@ -129,7 +129,7 @@ using namespace standard_cyborg;
         _metalCommandQueue = commandQueue;
         _icpConfig.threadCount = maxThreadCount;
 
-        NSString *fusionBundlePath = [[NSBundle mainBundle] pathForResource:@"StandardCyborgFusion_StandardCyborgFusion" ofType:@"bundle"];
+        NSString *fusionBundlePath = [[NSBundle mainBundle] pathForResource:@"StandardCyborgCocoa_StandardCyborgFusion" ofType:@"bundle"];
         NSBundle *scFusionBundle = [NSBundle bundleWithPath:fusionBundlePath];
         _metalLibrary = [device newDefaultLibraryWithBundle:scFusionBundle error:NULL];
         _depthProcessor = std::shared_ptr<DepthProcessor>(new MetalDepthProcessor(_metalDevice, _metalLibrary, _metalCommandQueue));
