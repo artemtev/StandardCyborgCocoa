@@ -87,34 +87,43 @@ let package = Package(
         ),
 
         // MARK: - CppDependencies
+        // Each is a header-only C++ library with a dummy .m file to satisfy SPM's
+        // requirement for at least one source file. Sources is set explicitly to
+        // avoid the "mixed language" error SPM raises when it sees .m + .hpp together.
         .target(
             name: "json",
             path: "CppDependencies/json",
+            sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "happly",
             path: "CppDependencies/happly",
+            sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "nanoflann",
             path: "CppDependencies/nanoflann",
+            sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "SparseICP",
             path: "CppDependencies/SparseICP",
+            sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "stb",
             path: "CppDependencies/stb",
+            sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "tinygltf",
             path: "CppDependencies/tinygltf",
+            sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
