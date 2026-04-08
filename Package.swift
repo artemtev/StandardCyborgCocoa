@@ -17,9 +17,7 @@ let package = Package(
             targets: ["StandardCyborgUI"]
         ),
     ],
-    dependencies: [
-        .package(url: "https://github.com/ZipArchive/ZipArchive.git", from: "2.6.0"),
-    ],
+    dependencies: [],
     targets: [
         // MARK: - StandardCyborgFusion
         .target(
@@ -28,7 +26,6 @@ let package = Package(
                 "json",
                 "standard_cyborg",
                 "PoissonRecon",
-                .product(name: "ZipArchive", package: "ZipArchive"),
             ],
             path: "StandardCyborgFusion/Sources",
             publicHeadersPath: "include",
@@ -37,6 +34,7 @@ let package = Package(
                 .headerSearchPath("."),
                 .headerSearchPath("../EigenInclude"),
                 .headerSearchPath("../libigl/include"),
+                .headerSearchPath("../ZipArchiveShim"),
                 .headerSearchPath("StandardCyborgFusion/Algorithm"),
                 .headerSearchPath("StandardCyborgFusion/DataStructures"),
                 .headerSearchPath("StandardCyborgFusion/EarLandmarking"),
@@ -134,6 +132,7 @@ let package = Package(
         .target(
             name: "PoissonRecon",
             path: "CppDependencies/PoissonRecon/Sources",
+            exclude: ["src/PlyFile.cpp"],
             publicHeadersPath: "include",
             cxxSettings: [
                 .define("STD_LIB_FLAG"),
