@@ -88,41 +88,48 @@ let package = Package(
 
         // MARK: - CppDependencies
         // Each is a header-only C++ library with a dummy .m file to satisfy SPM's
-        // requirement for at least one source file. Sources is set explicitly to
-        // avoid the "mixed language" error SPM raises when it sees .m + .hpp together.
+        // requirement for at least one source file. The nested Package.swift (from
+        // when these were standalone packages) must be excluded — SPM treats it as a
+        // Swift source file, causing a mixed-language error alongside the ObjC .m file.
         .target(
             name: "json",
             path: "CppDependencies/json",
+            exclude: ["Package.swift", ".swiftpm"],
             sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "happly",
             path: "CppDependencies/happly",
+            exclude: ["Package.swift", ".swiftpm"],
             sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "nanoflann",
             path: "CppDependencies/nanoflann",
+            exclude: ["Package.swift", ".swiftpm"],
             sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "SparseICP",
             path: "CppDependencies/SparseICP",
+            exclude: ["Package.swift", ".swiftpm"],
             sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "stb",
             path: "CppDependencies/stb",
+            exclude: ["Package.swift", ".swiftpm"],
             sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
         .target(
             name: "tinygltf",
             path: "CppDependencies/tinygltf",
+            exclude: ["Package.swift", ".swiftpm"],
             sources: ["spm_hack_generate_object_file.m"],
             publicHeadersPath: "include"
         ),
