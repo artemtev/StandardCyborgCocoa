@@ -10,12 +10,10 @@ let package = Package(
     products: [
         .library(
             name: "StandardCyborgFusion",
-            type: .dynamic,
             targets: ["StandardCyborgFusion"]
         ),
         .library(
             name: "StandardCyborgUI",
-            type: .dynamic,
             targets: ["StandardCyborgUI"]
         ),
     ],
